@@ -14,7 +14,12 @@ public class RecursiveMethods {
 	public static double geometricSum(int n) {
 		
 			// FIXME compute the geometric sum for the first n terms recursively
-			return 0;
+			if (n == 0) {
+				return 0;
+			}
+			else {
+				return geometricSum(n - 1) + Math.pow(0.5, n);
+			}
 		
 	}
 
@@ -31,6 +36,13 @@ public class RecursiveMethods {
 	public static void circlesUponCircles(double xCenter, double yCenter, double radius, double radiusMinimumDrawingThreshold) {
 		
 		// FIXME complete the recursive drawing
+		if (radius >= radiusMinimumDrawingThreshold) {
+			StdDraw.circle(xCenter, yCenter, radius);
+			circlesUponCircles(xCenter + radius, yCenter, radius / 3, radiusMinimumDrawingThreshold);
+			circlesUponCircles(xCenter - radius, yCenter, radius / 3, radiusMinimumDrawingThreshold);
+			circlesUponCircles(xCenter, yCenter + radius, radius / 3, radiusMinimumDrawingThreshold);
+			circlesUponCircles(xCenter, yCenter - radius, radius / 3, radiusMinimumDrawingThreshold);
+		}
 	}
 	
 
@@ -43,8 +55,19 @@ public class RecursiveMethods {
 	public static int[] toReversed(int[] array) {
 		
 			// FIXME create a helper method that can recursively reverse the given array
+			if (array.length > 0) {
+				int[] reversed = new int[array.length];
+				toReversedHelper(array, reversed, 0);
+				return reversed;
+			}
 			return new int[0];
 		
+	}
+	private static void toReversedHelper(int[] array, int[] reversed, int index) {
+		if (index < array.length) {
+			reversed[array.length - 1 - index] = array[index];
+			toReversedHelper(array, reversed, index + 1);
+		}
 	}
 
 	/**
@@ -58,7 +81,12 @@ public class RecursiveMethods {
 	public static int gcd(int p, int q) {
 		
 			// FIXME compute the gcd of p and q using recursion
-			return 0;
+			if (q == 0) {
+				return p;
+			}
+			else {
+				return gcd(q, p % q);
+			}
 		
 	}
 
